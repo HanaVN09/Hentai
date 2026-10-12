@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hana Der - Bio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #030305;
+            color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Hiệu ứng ánh sáng nền huyền ảo động */
+        .bg-glow-1, .bg-glow-2 {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -2;
+            animation: floatGlow 8s ease-in-out infinite alternate;
+        }
+
+        .bg-glow-1 {
+            background: rgba(120, 119, 198, 0.15);
+            top: 10%;
+            left: 15%;
+        }
+
+        .bg-glow-2 {
+            background: rgba(236, 72, 153, 0.1);
+            bottom: 10%;
+            right: 15%;
+            animation-delay: -4s;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-30px) scale(1.15); }
+        }
+
+        /* Khung Bio chính mang phong cách Glassmorphism hiện đại */
+        .container {
+            width: 100%;
+            max-width: 440px;
+            background: rgba(18, 18, 24, 0.65);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            padding: 40px 25px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            text-align: center;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Avatar sang chảnh có viền sáng động */
+        .avatar-container {
+            position: relative;
+            width: 115px;
+            height: 115px;
+            margin: 0 auto 20px;
+        }
+
+        .avatar-container::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffffff, #6b7280, #ffffff);
+            z-index: -1;
+            animation: rotateBorder 4s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes rotateBorder {
+            100% { transform: rotate(360deg); }
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0f0f13;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .avatar-container:hover .avatar {
+            transform: scale(1.08);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        h1 i {
+            font-size: 16px;
+            color: #38bdf8;
+        }
+
+        p.bio {
+            font-size: 14px;
+            color: #9ca3af;
+            margin-bottom: 28px;
+            font-weight: 400;
+        }
+
+        /* Nút âm thanh tối giản góc trên */
+        .music-toggle {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: rgba(20, 20, 28, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(35, 35, 48, 0.95);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .music-toggle.playing i {
+            animation: spin 3s linear infinite;
+            color: #f472b6;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Danh sách Link mạng xã hội */
+        .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 15px 20px;
+            border-radius: 18px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .link-item .left-content {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .link-item i.icon {
+            font-size: 20px;
+            width: 26px;
+            text-align: center;
+            color: #e2e8f0;
+            transition: transform 0.3s ease;
+        }
+
+        .link-item .fa-arrow-right {
+            font-size: 12px;
+            color: #64748b;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .link-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .link-item:hover i.icon {
+            transform: scale(1.15);
+        }
+
+        .link-item:hover .fa-arrow-right {
+            transform: translateX(5px);
+            color: #ffffff;
+        }
+
+        /* Icon mạng xã hội tròn bên dưới */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 17px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: #ffffff;
+            color: #030305;
+            border-color: #ffffff;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .footer {
+            margin-top: 28px;
+            font-size: 12px;
+            color: #64748b;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hiệu ứng sáng nền -->
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <!-- Nút Bật/Tắt Nhạc Nền -->
+    <div class="music-toggle" id="musicBtn" onclick="toggleMusic()" title="Bật/Tắt nhạc nền">
+        <i class="fa-solid fa-music"></i>
+    </div>
+
+    <!-- Nhạc nền (Tự động phát) -->
+    <audio id="bgMusic" loop>
+        <source src="https://files.catbox.moe/7zrert.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="container">
+        <div class="avatar-container">
+            <!-- Avatar của bạn -->
+            <img src="https://i.ibb.co/9HhdHxsq" alt="Avatar" class="avatar">
+        </div>
+
+        <h1>Hana Der <i class="fa-solid fa-circle-check"></i></h1>
+        <p class="bio">Welcome to my space ✨</p>
+
+        <div class="links-list">
+            <!-- Link TikTok -->
+            <a href="https://www.tiktok.com/@hanagumball" target="_blank" class="link-item">
+                <div class="left-content">
+                    <i class="fa-brands fa-tiktok icon"></i>
+                    <span>TikTok (@hanagumball)</span>
+                </div>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <!-- Link Telegram -->
+            <a href="https://t.me/InfoMe_Hana" target="_blank" class="link-item">
+                <div class="left-content">
+                    <i class="fa-brands fa-telegram icon"></i>
+                    <span>Telegram Contact</span>
+                </div>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="social-icons">
+            <a href="https://www.tiktok.com/@hanagumball" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://t.me/InfoMe_Hana" target="_blank" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
+        </div>
+
+        <div class="footer">
+            © 2026 Hana Der. All rights reserved.
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicBtn.classList.remove('playing');
+                musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+            } else {
+                music.play().catch(e => console.log("Autoplay blocked"));
+                musicBtn.classList.add('playing');
+                musicBtn.innerHTML = '<i class="fa-solid fa-compact-disc"></i>';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Tự động phát nhạc ngay khi vừa vào trang web
+        window.addEventListener('DOMContentLoaded', () => {
+            music.volume = 0.5; // Đặt âm lượng vừa phải (50%)
+            music.play().then(() => {
+                isPlaying = true;
+                musicBtn.classList.add('playing');
+                musicBtn.innerHTML = '<i class="fa-solid fa-compact-disc"></i>';
+            }).catch(error => {
+                // Một số trình duyệt chặn autoplay nếu người dùng chưa tương tác, 
+                // lúc này người dùng chỉ cần bấm vào màn hình hoặc nút nhạc là phát bình thường.
+                console.log("Trình duyệt chặn tự động phát âm thanh:", error);
+            });
+        });
+
+        // Hỗ trợ kích hoạt nhạc ngay khi người dùng chạm/click lần đầu tiên vào trang nếu bị trình duyệt chặn
+        document.body.addEventListener('click', function initAudio() {
+            if (!isPlaying) {
+                music.play().then(() => {
+                    isPlaying = true;
+                    musicBtn.classList.add('playing');
+                    musicBtn.innerHTML = '<i class="fa-solid fa-compact-disc"></i>';
+                }).catch(e => {});
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
